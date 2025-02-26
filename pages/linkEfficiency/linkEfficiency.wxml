@@ -1,0 +1,69 @@
+<view class="container">
+  <view class="title">链路效率计算</view>
+  
+  <view class="card">
+    <view class="subtitle">链路类型</view>
+    <radio-group bindchange="onLinkTypeChange">
+      <radio value="downlink" checked="{{linkType === 'downlink'}}">下行链路</radio>
+      <radio value="uplink" style="margin-left: 30rpx;" checked="{{linkType === 'uplink'}}">上行链路</radio>
+    </radio-group>
+  </view>
+  
+  <view class="card">
+    <view class="subtitle">计算方式</view>
+    <radio-group bindchange="onCalcTypeChange">
+      <radio value="datarate" checked="{{calcType === 'datarate'}}">输入数据速率</radio>
+      <radio value="symbolrate" style="margin-left: 30rpx;" checked="{{calcType === 'symbolrate'}}">输入符号速率</radio>
+    </radio-group>
+  </view>
+  
+  <view class="card">
+    <view class="subtitle">MODCOD 选择</view>
+    <picker bindchange="bindModcodChange" value="{{modcodIndex}}" range="{{modcods}}">
+      <view class="picker">
+        {{modcods[modcodIndex]}}
+        <view style="color: #999;">▼</view>
+      </view>
+    </picker>
+  </view>
+  
+  <view class="card" wx:if="{{calcType === 'datarate'}}">
+    <view class="subtitle">输入数据速率</view>
+    <view class="input-group">
+      <view class="input-label">数据速率 (kbps)</view>
+      <input class="input" type="digit" bindinput="inputDataRate" value="{{inputDataRate}}" placeholder="请输入数据速率"/>
+    </view>
+  </view>
+  
+  <view class="card" wx:if="{{calcType === 'symbolrate'}}">
+    <view class="subtitle">输入符号速率</view>
+    <view class="input-group">
+      <view class="input-label">符号速率 (ksps)</view>
+      <input class="input" type="digit" bindinput="inputSymbolRate" value="{{inputSymbolRate}}" placeholder="请输入符号速率"/>
+    </view>
+  </view>
+  
+  <button class="btn-primary" bindtap="calculate">计算</button>
+  
+  <view class="card" wx:if="{{showResult}}">
+    <view class="subtitle">计算结果</view>
+    <view class="result-group">
+      <view class="result-item">
+        <view class="result-label">数据速率 (datarate)：</view>
+        <view class="result-value">{{result.dataRate}}</view>
+      </view>
+      <view class="result-item">
+        <view class="result-label">符号速率 (symbolrate)：</view>
+        <view class="result-value">{{result.symbolRate}}</view>
+      </view>
+      <view class="result-item">
+        <view class="result-label">占用带宽 (bandwidth)：</view>
+        <view class="result-value">{{result.bandwidth}}</view>
+      </view>
+      <view class="result-item">
+        <view class="result-label">链路效率 (efficiency)：</view>
+        <view class="result-value">{{result.efficiency}}</view>
+      </view>
+    </view>
+  </view>
+</view>

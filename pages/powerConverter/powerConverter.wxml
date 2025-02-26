@@ -1,0 +1,39 @@
+<view class="container">
+  <view class="title">功放功率换算</view>
+  
+  <view class="card">
+    <view class="subtitle">转换类型</view>
+    <radio-group bindchange="onConvertTypeChange">
+      <radio value="wattsTodBm" checked="{{convertType === 'wattsTodBm'}}">Watts 转 dBm</radio>
+      <radio value="dBmToWatts" style="margin-left: 30rpx;" checked="{{convertType === 'dBmToWatts'}}">dBm 转 Watts</radio>
+    </radio-group>
+  </view>
+  
+  <view class="card" wx:if="{{convertType === 'wattsTodBm'}}">
+    <view class="subtitle">输入功率</view>
+    <view class="input-group">
+      <view class="input-label">功率 (W)</view>
+      <input class="input" type="digit" bindinput="inputWatts" value="{{inputWatts}}" placeholder="请输入功率值"/>
+    </view>
+  </view>
+  
+  <view class="card" wx:if="{{convertType === 'dBmToWatts'}}">
+    <view class="subtitle">输入功率</view>
+    <view class="input-group">
+      <view class="input-label">功率 (dBm)</view>
+      <input class="input" type="digit" bindinput="inputDBm" value="{{inputDBm}}" placeholder="请输入功率值"/>
+    </view>
+  </view>
+  
+  <button class="btn-primary" bindtap="convert">转换</button>
+  
+  <view class="card" wx:if="{{showResult}}">
+    <view class="subtitle">转换结果</view>
+    <view class="result-group">
+      <view class="result-item">
+        <view class="result-label">BUC 输出功率为：</view>
+        <view class="result-value">{{result.value}} {{result.unit}}</view>
+      </view>
+    </view>
+  </view>
+</view>
