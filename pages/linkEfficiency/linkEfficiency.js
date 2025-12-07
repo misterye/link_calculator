@@ -19,7 +19,7 @@ Page({
   },
   
   onLoad: function() {
-    // 初始化加载下行链路的modcods和滚降因子百分比
+    // 初始化加载下行链路的 modcods 和滚降因子百分比
     this.setData({
       modcods: calculator.DOWNLINK_MODCODS,
       rollOffPercentage: calculator.getRollOffPercentage()
